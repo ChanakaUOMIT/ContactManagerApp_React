@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Consumer } from '../../context';
 import uuid from 'uuid';
+import TextInputGroup from '../layout/TextInputGroup';
 
 class AddContact extends Component {
 
@@ -24,6 +25,13 @@ class AddContact extends Component {
 
         //dispatch({ type: 'ADD_CONTACT', payload: newContact});
         dispatch({type: 'ADD_CONTACT', payload: newContact});
+
+        //Clear State
+        this.setState({
+            name:'',
+            email:'',
+            phone:''
+        })
     };
 
     onChange=(e)=>{
@@ -43,7 +51,32 @@ class AddContact extends Component {
                     <div className="card-header">Add Contact</div>
                     <div className="card-body">
                         <form onSubmit={this.onSubmit.bind(this, dispatch)}>
-                            <div className="form-group">
+
+                            <TextInputGroup 
+                                label="Name"
+                                name="name"
+                                placeholder="Enter Name"
+                                value={name}
+                                onChange={this.onChange}
+                            />
+
+                             <TextInputGroup 
+                                label="Email"
+                                name="email"
+                                placeholder="Enter Your Email"
+                                value={email}
+                                onChange={this.onChange}
+                            />
+
+                             <TextInputGroup 
+                                label="Phone"
+                                name="phone"
+                                placeholder="Enter Phone"
+                                value={phone}
+                                onChange={this.onChange}
+                            />
+
+                            {/* <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input 
                                     type='text'
@@ -77,7 +110,7 @@ class AddContact extends Component {
                                     value={phone}
                                     onChange={this.onChange}
                                 />
-                            </div>
+                            </div> */}
             
                             <input 
                                 type="submit" 
