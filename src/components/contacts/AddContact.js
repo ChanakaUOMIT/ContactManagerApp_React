@@ -37,12 +37,12 @@ class AddContact extends Component {
       return(
           <Consumer>
               {value => {
-                  const { distpatch }= value;
+                  const { dispatch }= value;
                   return(
                     <div className="card mb-3">
                     <div className="card-header">Add Contact</div>
                     <div className="card-body">
-                        <form onSubmit={this.onSubmit.bind(this, distpatch)}>
+                        <form onSubmit={this.onSubmit.bind(this, dispatch)}>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input 
