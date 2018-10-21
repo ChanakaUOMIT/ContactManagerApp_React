@@ -8,13 +8,28 @@ class AddContact extends Component {
     state ={
         name:'',
         email:'',
-        phone:''
+        phone:'',
+        errors:{}
     };
 
     onSubmit=(dispatch, e)=>{
         e.preventDefault();
         //console.log(this.state);
         const { name, email, phone }=this.state;
+
+        //Check For Errors
+        if(name===''){
+            this.setState({errors: {name: 'Name is Required'}});
+            return;
+        }
+        if(email===''){
+            this.setState({errors: {email: 'Email is Required'}});
+            return;
+        }
+        if(phone===''){
+            this.setState({errors: {phone: 'Phone is Required'}});
+            return;
+        }
 
         const newContact={
             id:uuid(),
@@ -30,7 +45,8 @@ class AddContact extends Component {
         this.setState({
             name:'',
             email:'',
-            phone:''
+            phone:'',   
+            errors:{}         
         })
     };
 
@@ -40,7 +56,7 @@ class AddContact extends Component {
     
 
   render() {
-      const { name, email, phone }=this.state;
+      const { name, email, phone, errors }=this.state;
 
       return(
           <Consumer>
@@ -58,14 +74,17 @@ class AddContact extends Component {
                                 placeholder="Enter Name"
                                 value={name}
                                 onChange={this.onChange}
+                                error={errors.name}
                             />
 
                              <TextInputGroup 
                                 label="Email"
                                 name="email"
+                                type="email"
                                 placeholder="Enter Your Email"
                                 value={email}
                                 onChange={this.onChange}
+                                error={errors.email}
                             />
 
                              <TextInputGroup 
@@ -74,43 +93,8 @@ class AddContact extends Component {
                                 placeholder="Enter Phone"
                                 value={phone}
                                 onChange={this.onChange}
-                            />
-
-                            {/* <div className="form-group">
-                                <label htmlFor="name">Name</label>
-                                <input 
-                                    type='text'
-                                    name='name'
-                                    className='form-control form-control-lg'
-                                    placeholder="Enter Name..."
-                                    value={name}
-                                    onChange={this.onChange}
-                                />
-                            </div>
-            
-                             <div className="form-group">
-                                <label htmlFor="name">Email</label>
-                                <input 
-                                    type='email'
-                                    name='email'
-                                    className='form-control form-control-lg'
-                                    placeholder="Enter Email..."
-                                    value={email}
-                                    onChange={this.onChange}
-                                />
-                            </div>
-            
-                             <div className="form-group">
-                                <label htmlFor="name">Phone</label>
-                                <input 
-                                    type='text'
-                                    name='phone'
-                                    className='form-control form-control-lg'
-                                    placeholder="Enter Phone..."
-                                    value={phone}
-                                    onChange={this.onChange}
-                                />
-                            </div> */}
+                                error={errors.phone}
+                            />                           
             
                             <input 
                                 type="submit" 
