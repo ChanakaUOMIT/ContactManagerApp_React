@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context=React.createContext();
 
@@ -25,33 +26,48 @@ const reducer=(state, action) =>{
 
 export class Provider extends Component{
     state={
-        contacts:[
-            {
-                id:1,
-                name:'Chanaka Sampath',
-                email:'chanakauomfit@gmail.com',
-                phone: '555-5555-5555'
-            },
+        contacts:[],
+        // contacts:[
+        //     {
+        //         id:1,
+        //         name:'Chanaka Sampath',
+        //         email:'chanakauomfit@gmail.com',
+        //         phone: '555-5555-5555'
+        //     },
 
-            {
-                id:2,
-                name:'React',
-                email:'react@gmail.com',
-                phone: '898-5625-7892'
-            },
+        //     {
+        //         id:2,
+        //         name:'React',
+        //         email:'react@gmail.com',
+        //         phone: '898-5625-7892'
+        //     },
 
-            {
-                id:3,
-                name:'React Native',
-                email:'ReactNative@gmail.com',
-                phone: '456-8923-4525'
-            },
-        ],
+        //     {
+        //         id:3,
+        //         name:'React Native',
+        //         email:'ReactNative@gmail.com',
+        //         phone: '456-8923-4525'
+        //     },
+        // ],
 
         dispatch: action =>
             this.setState(state => reducer(state, action))
         
     };
+
+//    componentDidMount(){
+//        axios.get('https://jsonplaceholder.typicode.com/users')
+//        .then(res=>this.setState({contacts:res.data}))
+
+//    }
+
+    async componentDidMount(){
+        const res= await axios
+        .get('https://jsonplaceholder.typicode.com/users');
+        
+        this.setState({contacts:res.data});
+
+    }
 
     render(){
         return(
